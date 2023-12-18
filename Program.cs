@@ -1,5 +1,5 @@
-using GraphQLDemo.API.GarphQL.Mutations;
-using GraphQLDemo.API.GarphQL.Types;
+using GraphQLDemo.API.GraphQL.Types;
+using GraphQLDemo.API.GraphQL.Mutations;
 using GraphQLDemo.API.Infrastructure.Data;
 using GraphQLDemo.API.Infrastructure.Repository;
 using GraphQLDemo.API.Interfaces;
@@ -12,6 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Interfaces & Repositories
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 builder.Services.AddGraphQLServer()
     .AddQueryType<StudentQueryTypes>()

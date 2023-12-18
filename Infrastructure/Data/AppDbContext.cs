@@ -11,7 +11,7 @@ public class AppDbContext : DbContext
 
     public DbSet<StudentType> Students => Set<StudentType>();
     public DbSet<InstructorType> Instructors => Set<InstructorType>();
-    public DbSet<CourseType> CourseTypes => Set<CourseType>();
+    public DbSet<CourseType> Courses => Set<CourseType>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

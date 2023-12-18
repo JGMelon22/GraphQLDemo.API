@@ -89,7 +89,7 @@ public class StudentRepository : IStudentRepository
 
         try
         {
-            var studentResult = new StudentResult
+            StudentType student = new StudentType
             {
                 Id = Guid.NewGuid(),
                 FirstName = newStudent.FirstName,
@@ -97,8 +97,16 @@ public class StudentRepository : IStudentRepository
                 Gpa = newStudent.Gpa
             };
 
-            await _dbContext.AddAsync(studentResult);
+            await _dbContext.AddAsync(student);
             await _dbContext.SaveChangesAsync();
+            
+            var studentResult = new StudentResult
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Gpa = student.Gpa
+            };
 
             serviceResponse.Data = studentResult;
         }
@@ -122,14 +130,13 @@ public class StudentRepository : IStudentRepository
             if (student is null)
                 throw new GraphQLException(new Error("Student not found!", "STUDENT_NOT_FOUND"));
             
-            
             // Update data and save (manual map)
             student.FirstName = updatedStudent.FirstName;
             student.LastName = updatedStudent.LastName;
             student.Gpa = updatedStudent.Gpa;
-            
+
             await _dbContext.SaveChangesAsync();
-            
+
             // Return based on studentResult
             var studentResult = new StudentResult
             {
@@ -160,7 +167,7 @@ public class StudentRepository : IStudentRepository
             var student = await _dbContext.Students.FindAsync(id);
 
             if (student is null)
-                throw new Exception("Student not found!");
+                throw new GraphQLException(new Error("Course not found!", "COURSE_NOT_FOUND"));
 
             _dbContext.Students.Remove(student);
             await _dbContext.SaveChangesAsync();

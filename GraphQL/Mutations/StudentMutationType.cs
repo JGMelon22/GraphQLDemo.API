@@ -2,7 +2,7 @@ using GraphQLDemo.API.DTOs.Student;
 using GraphQLDemo.API.Entities;
 using GraphQLDemo.API.Interfaces;
 
-namespace GraphQLDemo.API.GarphQL.Mutations;
+namespace GraphQLDemo.API.GraphQL.Mutations;
 
 public class StudentMutationType
 {

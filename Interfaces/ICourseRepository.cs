@@ -9,5 +9,5 @@ public interface ICourseRepository
     Task<ServiceResponse<CourseResult>> GetCourseByIdAsync(Guid id);
     Task<ServiceResponse<CourseResult>> AddCourseAsync(CourseInput newCourse);
     Task<ServiceResponse<CourseResult>> UpdateCourseAsync(Guid id, CourseInput updatedCourse);
-    Task<bool> RemoveCourse(Guid id);
+    Task<ServiceResponse<bool>> RemoveCourseAsync(Guid id);
 }

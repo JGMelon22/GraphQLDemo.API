@@ -2,7 +2,7 @@ using GraphQLDemo.API.DTOs.Student;
 using GraphQLDemo.API.Entities;
 using GraphQLDemo.API.Interfaces;
 
-namespace GraphQLDemo.API.GarphQL.Types;
+namespace GraphQLDemo.API.GraphQL.Types;
 
 public class StudentQueryTypes
 {
