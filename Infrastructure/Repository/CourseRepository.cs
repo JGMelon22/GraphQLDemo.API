@@ -1,23 +1,24 @@
 using GraphQLDemo.API.DTOs.Course;
 using GraphQLDemo.API.Entities;
-using GraphQLDemo.API.Infrastructure.Data;
 using GraphQLDemo.API.Interfaces;
 
 namespace GraphQLDemo.API.Infrastructure.Repository;
 
 public class CourseRepository : ICourseRepository
 {
+    private readonly AppDbContext _dbContext;
+
     private readonly Func<AppDbContext, Guid, Task<CourseResult?>> GetById =
         EF.CompileAsyncQuery((AppDbContext context, Guid id) =>
             context.Courses
-                .Select(c => new CourseResult()
+                .Select(c => new CourseResult
                 {
                     Id = c.Id,
                     Name = c.Name,
                     Subject = c.Subject
-                }).FirstOrDefault(c => c.Id == id));
-
-    private readonly AppDbContext _dbContext;
+                })
+                .AsNoTracking()
+                .FirstOrDefault(c => c.Id == id));
 
     public CourseRepository(AppDbContext dbContext)
     {
@@ -34,11 +35,11 @@ public class CourseRepository : ICourseRepository
                 .AsNoTracking()
                 .ToListAsync();
 
-            List<CourseResult> coursesMapped = new List<CourseResult>();
+            var coursesMapped = new List<CourseResult>();
 
             foreach (var course in courses)
             {
-                var courseResult = new CourseResult()
+                var courseResult = new CourseResult
                 {
                     Id = course.Id,
                     Name = course.Name,
@@ -86,9 +87,8 @@ public class CourseRepository : ICourseRepository
 
         try
         {
-            CourseType course = new CourseType()
+            var course = new CourseType
             {
-                Id = Guid.NewGuid(),
                 Name = newCourse.Name,
                 Subject = newCourse.Subject,
                 InstructorId = newCourse.InstructorId
@@ -97,7 +97,7 @@ public class CourseRepository : ICourseRepository
             await _dbContext.AddAsync(course);
             await _dbContext.SaveChangesAsync();
 
-            var courseResult = new CourseResult()
+            var courseResult = new CourseResult
             {
                 Id = course.Id,
                 Name = course.Name,
@@ -166,8 +166,6 @@ public class CourseRepository : ICourseRepository
 
             _dbContext.Courses.Remove(course);
             await _dbContext.SaveChangesAsync();
-
-            serviceResponse.Success = true;
         }
         catch (Exception ex)
         {

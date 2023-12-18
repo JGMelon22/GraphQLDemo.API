@@ -1,9 +1,3 @@
 namespace GraphQLDemo.API.DTOs.Instructor;
 
-public record InstructorInput
-{
-    public string FirstName { get; init; } = null!;
-    public string LastName { get; init; } = null!;
-    public decimal Salary { get; init; }
-    public Guid CourseId { get; init; }
-}
+public record InstructorInput(string FirstName, string LastName, decimal Salary, Guid CourseId);

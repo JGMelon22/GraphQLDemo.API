@@ -1,6 +1,5 @@
 using GraphQLDemo.API.DTOs.Student;
 using GraphQLDemo.API.Entities;
-using GraphQLDemo.API.Infrastructure.Data;
 using GraphQLDemo.API.Interfaces;
 
 namespace GraphQLDemo.API.Infrastructure.Repository;
@@ -89,9 +88,9 @@ public class StudentRepository : IStudentRepository
 
         try
         {
-            StudentType student = new StudentType
+            var student = new StudentType
             {
-                Id = Guid.NewGuid(),
+               
                 FirstName = newStudent.FirstName,
                 LastName = newStudent.LastName,
                 Gpa = newStudent.Gpa
@@ -99,7 +98,7 @@ public class StudentRepository : IStudentRepository
 
             await _dbContext.AddAsync(student);
             await _dbContext.SaveChangesAsync();
-            
+
             var studentResult = new StudentResult
             {
                 Id = student.Id,
@@ -129,7 +128,7 @@ public class StudentRepository : IStudentRepository
 
             if (student is null)
                 throw new GraphQLException(new Error("Student not found!", "STUDENT_NOT_FOUND"));
-            
+
             // Update data and save (manual map)
             student.FirstName = updatedStudent.FirstName;
             student.LastName = updatedStudent.LastName;
@@ -172,7 +171,7 @@ public class StudentRepository : IStudentRepository
             _dbContext.Students.Remove(student);
             await _dbContext.SaveChangesAsync();
 
-            serviceResponse.Success = true;
+            
         }
 
         catch (Exception ex)

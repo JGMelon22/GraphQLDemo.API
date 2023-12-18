@@ -9,5 +9,5 @@ public interface IInstructorRepository
     Task<ServiceResponse<InstructorResult>> GetInstructorByIdAsync(Guid id);
     Task<ServiceResponse<InstructorResult>> AddInstructorAsync(InstructorInput newInstructor);
     Task<ServiceResponse<InstructorResult>> UpdateInstructorAsync(Guid id, InstructorInput updatedInstructor);
-    Task<bool> RemoveInstructor(Guid id);
+    Task<ServiceResponse<bool>> RemoveInstructor(Guid id);
 }
