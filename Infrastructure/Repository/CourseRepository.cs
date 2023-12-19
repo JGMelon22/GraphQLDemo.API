@@ -15,7 +15,8 @@ public class CourseRepository : ICourseRepository
                 {
                     Id = c.Id,
                     Name = c.Name,
-                    Subject = c.Subject
+                    Subject = c.Subject,
+                    InstructorId = c.InstructorId
                 })
                 .AsNoTracking()
                 .FirstOrDefault(c => c.Id == id));
