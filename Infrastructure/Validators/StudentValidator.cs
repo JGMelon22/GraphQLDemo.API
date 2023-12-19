@@ -23,6 +23,7 @@ public class StudentValidator : AbstractValidator<StudentInput>
             .Cascade(CascadeMode.Stop)
             .NotNull().WithMessage("GPA can not be null!")
             .NotEmpty().WithMessage("GPA can not be empty!")
-            .Must(gpa => gpa is >= 0 and <= 4.0);
+            .Must(gpa => gpa is >= 0 and <= 4.0)
+            .WithMessage("GPA must be between 0.0 and 4.0");
     }
 }
