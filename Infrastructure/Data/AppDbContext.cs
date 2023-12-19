@@ -1,5 +1,6 @@
 using GraphQLDemo.API.Entities;
 using GraphQLDemo.API.Infrastructure.Configuration;
+using GraphQLDemo.API.Infrastructure.Configuration.Seeding;
 
 namespace GraphQLDemo.API.Infrastructure.Data;
 

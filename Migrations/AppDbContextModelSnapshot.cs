@@ -53,6 +53,78 @@ namespace GraphQLDemo.API.Migrations
                         .IsUnique();
 
                     b.ToTable("Courses", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("268516ff-f90a-45a8-a236-c225f2838858"),
+                            InstructorId = new Guid("f8684e83-ea26-45d7-81fd-84028cfa02dc"),
+                            Name = "Solutions",
+                            Subject = "Science"
+                        },
+                        new
+                        {
+                            Id = new Guid("f88e0099-ac3f-4910-b8e1-e66a36fb300a"),
+                            InstructorId = new Guid("1fa3cb5e-b114-4e77-8766-4f7a30b4d0f9"),
+                            Name = "Marketing",
+                            Subject = "History"
+                        },
+                        new
+                        {
+                            Id = new Guid("094506a7-e136-483c-aca8-213826d6e154"),
+                            InstructorId = new Guid("76b60a50-7754-44e1-8c6c-7857bc3d58f8"),
+                            Name = "Accountability",
+                            Subject = "Mathematics"
+                        },
+                        new
+                        {
+                            Id = new Guid("1c9d477f-0c12-4075-ac63-a79e427b2d85"),
+                            InstructorId = new Guid("fd2bf0aa-35b8-41da-ae54-c35009f89e30"),
+                            Name = "Security",
+                            Subject = "Mathematics"
+                        },
+                        new
+                        {
+                            Id = new Guid("a6e56268-d059-41b8-b9e0-aab635003df6"),
+                            InstructorId = new Guid("4914ae7a-e801-415a-875b-fd1d171b3d87"),
+                            Name = "Security",
+                            Subject = "Mathematics"
+                        },
+                        new
+                        {
+                            Id = new Guid("3858f138-72b1-483e-88a3-bceb4e9562df"),
+                            InstructorId = new Guid("d001056e-2466-40eb-94c7-871c1879f991"),
+                            Name = "Research",
+                            Subject = "History"
+                        },
+                        new
+                        {
+                            Id = new Guid("7927d664-48ba-41ab-bc41-9d92a3a08799"),
+                            InstructorId = new Guid("d001056e-2466-40eb-94c7-871c1879f991"),
+                            Name = "Applications",
+                            Subject = "Science"
+                        },
+                        new
+                        {
+                            Id = new Guid("a31fa7d1-eacf-4a4f-9a4f-a9dfaca8acf3"),
+                            InstructorId = new Guid("55649898-a4b8-4914-9917-bbba7d3b5b43"),
+                            Name = "Assurance",
+                            Subject = "History"
+                        },
+                        new
+                        {
+                            Id = new Guid("d24be30f-d276-4428-8c04-7b692990ae41"),
+                            InstructorId = new Guid("55649898-a4b8-4914-9917-bbba7d3b5b43"),
+                            Name = "Factors",
+                            Subject = "Mathematics"
+                        },
+                        new
+                        {
+                            Id = new Guid("be524b41-4414-40e1-9244-32ad868924b5"),
+                            InstructorId = new Guid("76b60a50-7754-44e1-8c6c-7857bc3d58f8"),
+                            Name = "Web",
+                            Subject = "Mathematics"
+                        });
                 });
 
             modelBuilder.Entity("GraphQLDemo.API.Entities.InstructorType", b =>
@@ -88,6 +160,88 @@ namespace GraphQLDemo.API.Migrations
                         .HasDatabaseName("IDX_InstructorId_Instructor");
 
                     b.ToTable("Instructors", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("76b60a50-7754-44e1-8c6c-7857bc3d58f8"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Jo",
+                            LastName = "Cassin",
+                            Salary = 14123.01m
+                        },
+                        new
+                        {
+                            Id = new Guid("1fa3cb5e-b114-4e77-8766-4f7a30b4d0f9"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Natasha",
+                            LastName = "Altenwerth",
+                            Salary = 7925.90m
+                        },
+                        new
+                        {
+                            Id = new Guid("4914ae7a-e801-415a-875b-fd1d171b3d87"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Richard",
+                            LastName = "Koepp",
+                            Salary = 13105.62m
+                        },
+                        new
+                        {
+                            Id = new Guid("6d0cb4eb-bd9a-42d5-a53b-c8361a76d5de"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Jean",
+                            LastName = "Rohan",
+                            Salary = 5075.47m
+                        },
+                        new
+                        {
+                            Id = new Guid("fd2bf0aa-35b8-41da-ae54-c35009f89e30"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Ellis",
+                            LastName = "Predovic",
+                            Salary = 14542.05m
+                        },
+                        new
+                        {
+                            Id = new Guid("6fc9686c-6b0f-45f2-b47e-9d0d03ed97ae"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Richard",
+                            LastName = "Will",
+                            Salary = 14717.26m
+                        },
+                        new
+                        {
+                            Id = new Guid("d001056e-2466-40eb-94c7-871c1879f991"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Jo",
+                            LastName = "Gutkowski",
+                            Salary = 3712.73m
+                        },
+                        new
+                        {
+                            Id = new Guid("626ccc5c-3cae-4c1e-bc22-ba4817148ca1"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Christopher",
+                            LastName = "Daugherty",
+                            Salary = 11143.54m
+                        },
+                        new
+                        {
+                            Id = new Guid("55649898-a4b8-4914-9917-bbba7d3b5b43"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Kenneth",
+                            LastName = "Cummings",
+                            Salary = 13535.06m
+                        },
+                        new
+                        {
+                            Id = new Guid("f8684e83-ea26-45d7-81fd-84028cfa02dc"),
+                            CourseId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            FirstName = "Brent",
+                            LastName = "Bayer",
+                            Salary = 11586.89m
+                        });
                 });
 
             modelBuilder.Entity("GraphQLDemo.API.Entities.StudentCourse", b =>
@@ -111,6 +265,58 @@ namespace GraphQLDemo.API.Migrations
                         .HasDatabaseName("IDX_StudentId_StudentsCourses");
 
                     b.ToTable("StudentsCourses", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            StudentId = new Guid("8d4881f4-7e40-452e-9706-6615c5dd4c0d"),
+                            CourseId = new Guid("f88e0099-ac3f-4910-b8e1-e66a36fb300a")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("5deabacd-6782-4bd9-924a-6e607e13d99d"),
+                            CourseId = new Guid("7927d664-48ba-41ab-bc41-9d92a3a08799")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("13c5201d-f8fb-4485-9cdc-8fa0f2c77a09"),
+                            CourseId = new Guid("a6e56268-d059-41b8-b9e0-aab635003df6")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("9a088744-cc8d-4779-a7ac-4dcc640c94b4"),
+                            CourseId = new Guid("7927d664-48ba-41ab-bc41-9d92a3a08799")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("db4b4cb5-a14b-4923-8829-5ab6435db742"),
+                            CourseId = new Guid("d24be30f-d276-4428-8c04-7b692990ae41")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("13c5201d-f8fb-4485-9cdc-8fa0f2c77a09"),
+                            CourseId = new Guid("7927d664-48ba-41ab-bc41-9d92a3a08799")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("13c5201d-f8fb-4485-9cdc-8fa0f2c77a09"),
+                            CourseId = new Guid("268516ff-f90a-45a8-a236-c225f2838858")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("13c5201d-f8fb-4485-9cdc-8fa0f2c77a09"),
+                            CourseId = new Guid("be524b41-4414-40e1-9244-32ad868924b5")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("9a088744-cc8d-4779-a7ac-4dcc640c94b4"),
+                            CourseId = new Guid("a31fa7d1-eacf-4a4f-9a4f-a9dfaca8acf3")
+                        },
+                        new
+                        {
+                            StudentId = new Guid("65faf253-2873-4e35-9d76-27c2cb3d8628"),
+                            CourseId = new Guid("a6e56268-d059-41b8-b9e0-aab635003df6")
+                        });
                 });
 
             modelBuilder.Entity("GraphQLDemo.API.Entities.StudentType", b =>
@@ -142,6 +348,78 @@ namespace GraphQLDemo.API.Migrations
                         .HasDatabaseName("IDX_StudentId_Student");
 
                     b.ToTable("Students", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fee41988-7f09-466d-a8d7-bd2370b6728a"),
+                            FirstName = "Ignacio",
+                            Gpa = 2.73f,
+                            LastName = "Ernser"
+                        },
+                        new
+                        {
+                            Id = new Guid("db4b4cb5-a14b-4923-8829-5ab6435db742"),
+                            FirstName = "Devin",
+                            Gpa = 1.27f,
+                            LastName = "Thiel"
+                        },
+                        new
+                        {
+                            Id = new Guid("be9b7f73-fe1c-4b2f-a75e-fab6ed2a9bf7"),
+                            FirstName = "Patty",
+                            Gpa = 3.31f,
+                            LastName = "Stehr"
+                        },
+                        new
+                        {
+                            Id = new Guid("13c5201d-f8fb-4485-9cdc-8fa0f2c77a09"),
+                            FirstName = "Matthew",
+                            Gpa = 3.45f,
+                            LastName = "Hettinger"
+                        },
+                        new
+                        {
+                            Id = new Guid("87b641e2-6aab-475e-bc8e-1e8dc39f2704"),
+                            FirstName = "Mildred",
+                            Gpa = 3.81f,
+                            LastName = "Larkin"
+                        },
+                        new
+                        {
+                            Id = new Guid("5deabacd-6782-4bd9-924a-6e607e13d99d"),
+                            FirstName = "Ida",
+                            Gpa = 2.1f,
+                            LastName = "Ortiz"
+                        },
+                        new
+                        {
+                            Id = new Guid("dd04051d-4a0b-45a7-a1a8-7c62be255d99"),
+                            FirstName = "Herman",
+                            Gpa = 0.27f,
+                            LastName = "Lang"
+                        },
+                        new
+                        {
+                            Id = new Guid("8d4881f4-7e40-452e-9706-6615c5dd4c0d"),
+                            FirstName = "Eloise",
+                            Gpa = 3.15f,
+                            LastName = "Schaden"
+                        },
+                        new
+                        {
+                            Id = new Guid("65faf253-2873-4e35-9d76-27c2cb3d8628"),
+                            FirstName = "Lynette",
+                            Gpa = 3.92f,
+                            LastName = "Kuvalis"
+                        },
+                        new
+                        {
+                            Id = new Guid("9a088744-cc8d-4779-a7ac-4dcc640c94b4"),
+                            FirstName = "Raul",
+                            Gpa = 1.05f,
+                            LastName = "Medhurst"
+                        });
                 });
 
             modelBuilder.Entity("GraphQLDemo.API.Entities.CourseType", b =>

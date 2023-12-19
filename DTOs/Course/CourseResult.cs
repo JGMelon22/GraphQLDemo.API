@@ -2,10 +2,10 @@ using GraphQLDemo.API.Entities;
 
 namespace GraphQLDemo.API.DTOs.Course;
 
-public class CourseResult
+public record CourseResult
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; } = null!;
-    public Subject Subject { get; set; }
-    public Guid InstructorId { get; set; }
+    public Guid Id { get; init; }
+    public string Name { get; init; } = null!;
+    public Subject Subject { get; init; }
+    public Guid InstructorId { get; init; }
 }

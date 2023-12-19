@@ -39,7 +39,7 @@ public static class InitialSeeding
 
         modelBuilder.Entity<StudentType>()
             .HasData(students);
-
+        
         modelBuilder.Entity<InstructorType>()
             .HasData(instructors);
 
