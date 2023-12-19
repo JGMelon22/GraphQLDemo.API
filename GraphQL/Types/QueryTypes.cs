@@ -1,3 +1,4 @@
+using GraphQLDemo.API.DTOs.Course;
 using GraphQLDemo.API.DTOs.Instructor;
 using GraphQLDemo.API.DTOs.Student;
 using GraphQLDemo.API.Entities;
@@ -32,5 +33,17 @@ public class QueryTypes
         Guid id)
     {
         return await instructorRepository.GetInstructorByIdAsync(id);
+    }
+    
+    // Course
+    public async Task<ServiceResponse<List<CourseResult>>> GetAllCoursesAsync(
+        [Service] ICourseRepository courseRepository)
+    {
+        return await courseRepository.GetAllCoursesAsync();
+    }
+
+    public async Task<ServiceResponse<CourseResult>> GetCourseByIdAsync([Service] ICourseRepository courseRepository, Guid id)
+    {
+        return await courseRepository.GetCourseByIdAsync(id);
     }
 }
