@@ -15,8 +15,8 @@ builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 builder.Services.AddGraphQLServer()
-    .AddQueryType<StudentQueryTypes>()
-    .AddMutationType<StudentMutationType>();
+    .AddQueryType<QueryTypes>()
+    .AddMutationType<MutationType>();
 
 var app = builder.Build();
 

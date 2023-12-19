@@ -4,8 +4,9 @@ using GraphQLDemo.API.Interfaces;
 
 namespace GraphQLDemo.API.GraphQL.Mutations;
 
-public class StudentMutationType
+public class MutationType
 {
+    // Student
     public async Task<ServiceResponse<StudentResult>> AddStudentAsync([Service] IStudentRepository studentRepository,
         StudentInput newStudent)
     {
@@ -23,4 +24,6 @@ public class StudentMutationType
     {
         return await studentRepository.RemoveStudentAsync(id);
     }
+    
+    // Instructor
 }
