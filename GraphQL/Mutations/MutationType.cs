@@ -1,3 +1,4 @@
+using GraphQLDemo.API.DTOs.Instructor;
 using GraphQLDemo.API.DTOs.Student;
 using GraphQLDemo.API.Entities;
 using GraphQLDemo.API.Interfaces;
@@ -24,6 +25,23 @@ public class MutationType
     {
         return await studentRepository.RemoveStudentAsync(id);
     }
-    
+
     // Instructor
+    public async Task<ServiceResponse<InstructorResult>> AddInstructorAsync(
+        [Service] IInstructorRepository instructorRepository, InstructorInput newInstructor)
+    {
+        return await instructorRepository.AddInstructorAsync(newInstructor);
+    }
+
+    public async Task<ServiceResponse<InstructorResult>> UpdateInstructorAsync(
+        [Service] IInstructorRepository instructorRepository, Guid id, InstructorInput updatedInstructor)
+    {
+        return await instructorRepository.UpdateInstructorAsync(id, updatedInstructor);
+    }
+
+    public async Task<ServiceResponse<bool>> RemoveInstructorAsyncAsync(
+        [Service] IInstructorRepository instructorRepository, Guid id)
+    {
+        return await instructorRepository.RemoveInstructor(id);
+    }
 }
