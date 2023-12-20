@@ -3,6 +3,8 @@ using GraphQLDemo.API.DTOs.Instructor;
 using GraphQLDemo.API.DTOs.Student;
 using GraphQLDemo.API.Entities;
 using GraphQLDemo.API.Interfaces;
+using Microsoft.AspNetCore.OutputCaching;
+using Location = HotChocolate.Language.Location;
 
 namespace GraphQLDemo.API.GraphQL.Types;
 
@@ -14,7 +16,7 @@ public class QueryTypes
     {
         return await studentRepository.GetAllStudentsAsync();
     }
-
+    
     public async Task<ServiceResponse<StudentResult>> GetStudentByIdAsync([Service] IStudentRepository studentRepository,
         Guid studentId)
     {
