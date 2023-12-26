@@ -51,8 +51,9 @@ public class InstructorRepository : IInstructorRepository
                 };
 
                 instructorsMapped.Add(instructorResult);
-                serviceResponse.Data = instructorsMapped;
             }
+            
+            serviceResponse.Data = instructorsMapped;
         }
         catch (Exception ex)
         {

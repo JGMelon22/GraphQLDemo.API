@@ -49,8 +49,9 @@ public class CourseRepository : ICourseRepository
                 };
 
                 coursesMapped.Add(courseResult);
-                serviceResponse.Data = coursesMapped;
             }
+            
+            serviceResponse.Data = coursesMapped;
         }
         catch (Exception ex)
         {

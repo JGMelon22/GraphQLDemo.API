@@ -47,8 +47,9 @@ public class StudentRepository : IStudentRepository
                 };
 
                 studentsMapped.Add(studentResult);
-                serviceResponse.Data = studentsMapped;
             }
+            
+            serviceResponse.Data = studentsMapped;
         }
 
         catch (Exception ex)
