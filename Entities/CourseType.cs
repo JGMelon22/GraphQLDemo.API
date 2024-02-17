@@ -9,5 +9,5 @@ public class CourseType
     public Guid InstructorId { get; set; }
     [GraphQLNonNullType] public InstructorType Instructor { get; set; } = null!;
 
-    public IEnumerable<StudentCourse> StudentsCourses { get; set; }
+    public IEnumerable<StudentCourse> StudentsCourses { get; set; } = null!;
 }

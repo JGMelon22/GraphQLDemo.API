@@ -1,5 +1,4 @@
 using FluentValidation;
-using FluentValidation.Results;
 using GraphQLDemo.API.DTOs.Course;
 using GraphQLDemo.API.DTOs.Instructor;
 using GraphQLDemo.API.DTOs.Student;
@@ -8,25 +7,16 @@ using GraphQLDemo.API.Interfaces;
 
 namespace GraphQLDemo.API.GraphQL.Mutations;
 
-public class MutationType
+public class MutationType(
+    IValidator<StudentInput> studentInputValidator,
+    IValidator<InstructorInput> instructorInputValidator,
+    IValidator<CourseInput> courseInputValidator)
 {
-    private readonly IValidator<StudentInput> _studentInputValidator;
-    private readonly IValidator<InstructorInput> _instructorInputValidator;
-    private readonly IValidator<CourseInput> _courseInputValidator;
-
-    public MutationType(IValidator<StudentInput> studentInputValidator,
-        IValidator<InstructorInput> instructorInputValidator, IValidator<CourseInput> courseInputValidator)
-    {
-        _studentInputValidator = studentInputValidator;
-        _instructorInputValidator = instructorInputValidator;
-        _courseInputValidator = courseInputValidator;
-    }
-
     // Student
     public async Task<ServiceResponse<StudentResult>> AddStudentAsync([Service] IStudentRepository studentRepository,
         StudentInput newStudent)
     {
-        ValidationResult result = await _studentInputValidator.ValidateAsync(newStudent);
+        var result = await studentInputValidator.ValidateAsync(newStudent);
 
         if (!result.IsValid)
             throw new GraphQLException(string.Join(',', result.Errors));
@@ -37,7 +27,7 @@ public class MutationType
     public async Task<ServiceResponse<StudentResult>> UpdateStudentAsync([Service] IStudentRepository studentRepository,
         Guid id, StudentInput updatedStudent)
     {
-        ValidationResult result = await _studentInputValidator.ValidateAsync(updatedStudent);
+        var result = await studentInputValidator.ValidateAsync(updatedStudent);
 
         if (!result.IsValid)
             throw new GraphQLException(string.Join(',', result.Errors));
@@ -55,7 +45,7 @@ public class MutationType
     public async Task<ServiceResponse<InstructorResult>> AddInstructorAsync(
         [Service] IInstructorRepository instructorRepository, InstructorInput newInstructor)
     {
-        ValidationResult result = await _instructorInputValidator.ValidateAsync(newInstructor);
+        var result = await instructorInputValidator.ValidateAsync(newInstructor);
 
         if (!result.IsValid)
             throw new GraphQLException(string.Join(',', result.Errors));
@@ -66,7 +56,7 @@ public class MutationType
     public async Task<ServiceResponse<InstructorResult>> UpdateInstructorAsync(
         [Service] IInstructorRepository instructorRepository, Guid id, InstructorInput updatedInstructor)
     {
-        ValidationResult result = await _instructorInputValidator.ValidateAsync(updatedInstructor);
+        var result = await instructorInputValidator.ValidateAsync(updatedInstructor);
 
         if (!result.IsValid)
             throw new GraphQLException(string.Join(',', result.Errors));
@@ -84,7 +74,7 @@ public class MutationType
     public async Task<ServiceResponse<CourseResult>> AddCourseAsync([Service] ICourseRepository courseRepository,
         CourseInput newCourse)
     {
-        ValidationResult result = await _courseInputValidator.ValidateAsync(newCourse);
+        var result = await courseInputValidator.ValidateAsync(newCourse);
 
         if (!result.IsValid)
             throw new GraphQLException(string.Join(',', result.Errors));
@@ -95,7 +85,7 @@ public class MutationType
     public async Task<ServiceResponse<CourseResult>> UpdateCourseAsync([Service] ICourseRepository courseRepository,
         Guid id, CourseInput updatedCourse)
     {
-        ValidationResult result = await _courseInputValidator.ValidateAsync(updatedCourse);
+        var result = await courseInputValidator.ValidateAsync(updatedCourse);
 
         if (!result.IsValid)
             throw new GraphQLException(string.Join(',', result.Errors));

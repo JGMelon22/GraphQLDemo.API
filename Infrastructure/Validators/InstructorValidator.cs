@@ -7,8 +7,8 @@ public class InstructorValidator : AbstractValidator<InstructorInput>
 {
     public InstructorValidator()
     {
-        Decimal minimumSalary = 2000.00M;
-        Decimal maximumSalary = 9999999.99M;
+        var minimumSalary = 2000.00M;
+        var maximumSalary = 9999999.99M;
 
         RuleFor(i => i.FirstName)
             .Cascade(CascadeMode.Stop)

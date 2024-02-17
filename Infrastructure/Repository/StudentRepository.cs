@@ -4,7 +4,7 @@ using GraphQLDemo.API.Interfaces;
 
 namespace GraphQLDemo.API.Infrastructure.Repository;
 
-public class StudentRepository : IStudentRepository
+public class StudentRepository(AppDbContext dbContext) : IStudentRepository
 {
     private static readonly Func<AppDbContext, Guid, Task<StudentResult?>> GetById =
         EF.CompileAsyncQuery((AppDbContext context, Guid id) =>
@@ -17,20 +17,13 @@ public class StudentRepository : IStudentRepository
                     Gpa = s.Gpa
                 }).FirstOrDefault(s => s.Id == id));
 
-    private readonly AppDbContext _dbContext;
-
-    public StudentRepository(AppDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public async Task<ServiceResponse<List<StudentResult>>> GetAllStudentsAsync()
     {
         var serviceResponse = new ServiceResponse<List<StudentResult>>();
 
         try
         {
-            var students = await _dbContext.Students
+            var students = await dbContext.Students
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -48,7 +41,7 @@ public class StudentRepository : IStudentRepository
 
                 studentsMapped.Add(studentResult);
             }
-            
+
             serviceResponse.Data = studentsMapped;
         }
 
@@ -67,7 +60,7 @@ public class StudentRepository : IStudentRepository
 
         try
         {
-            var student = await GetById(_dbContext, id);
+            var student = await GetById(dbContext, id);
 
             if (student is null) throw new GraphQLException(new Error("Student not found!", "STUDENT_NOT_FOUND"));
 
@@ -91,14 +84,13 @@ public class StudentRepository : IStudentRepository
         {
             var student = new StudentType
             {
-               
                 FirstName = newStudent.FirstName,
                 LastName = newStudent.LastName,
                 Gpa = newStudent.Gpa
             };
 
-            await _dbContext.AddAsync(student);
-            await _dbContext.SaveChangesAsync();
+            await dbContext.AddAsync(student);
+            await dbContext.SaveChangesAsync();
 
             var studentResult = new StudentResult
             {
@@ -125,7 +117,7 @@ public class StudentRepository : IStudentRepository
 
         try
         {
-            var student = await _dbContext.Students.FindAsync(id);
+            var student = await dbContext.Students.FindAsync(id);
 
             if (student is null)
                 throw new GraphQLException(new Error("Student not found!", "STUDENT_NOT_FOUND"));
@@ -135,7 +127,7 @@ public class StudentRepository : IStudentRepository
             student.LastName = updatedStudent.LastName;
             student.Gpa = updatedStudent.Gpa;
 
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             // Return based on studentResult
             var studentResult = new StudentResult
@@ -164,15 +156,13 @@ public class StudentRepository : IStudentRepository
 
         try
         {
-            var student = await _dbContext.Students.FindAsync(id);
+            var student = await dbContext.Students.FindAsync(id);
 
             if (student is null)
                 throw new GraphQLException(new Error("Course not found!", "COURSE_NOT_FOUND"));
 
-            _dbContext.Students.Remove(student);
-            await _dbContext.SaveChangesAsync();
-
-            
+            dbContext.Students.Remove(student);
+            await dbContext.SaveChangesAsync();
         }
 
         catch (Exception ex)

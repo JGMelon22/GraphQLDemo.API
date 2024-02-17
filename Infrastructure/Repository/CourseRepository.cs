@@ -4,10 +4,8 @@ using GraphQLDemo.API.Interfaces;
 
 namespace GraphQLDemo.API.Infrastructure.Repository;
 
-public class CourseRepository : ICourseRepository
+public class CourseRepository(AppDbContext dbContext) : ICourseRepository
 {
-    private readonly AppDbContext _dbContext;
-
     private readonly Func<AppDbContext, Guid, Task<CourseResult?>> GetById =
         EF.CompileAsyncQuery((AppDbContext context, Guid id) =>
             context.Courses
@@ -21,18 +19,13 @@ public class CourseRepository : ICourseRepository
                 .AsNoTracking()
                 .FirstOrDefault(c => c.Id == id));
 
-    public CourseRepository(AppDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public async Task<ServiceResponse<List<CourseResult>>> GetAllCoursesAsync()
     {
         var serviceResponse = new ServiceResponse<List<CourseResult>>();
 
         try
         {
-            var courses = await _dbContext.Courses
+            var courses = await dbContext.Courses
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -50,7 +43,7 @@ public class CourseRepository : ICourseRepository
 
                 coursesMapped.Add(courseResult);
             }
-            
+
             serviceResponse.Data = coursesMapped;
         }
         catch (Exception ex)
@@ -68,7 +61,7 @@ public class CourseRepository : ICourseRepository
 
         try
         {
-            var course = await GetById(_dbContext, id);
+            var course = await GetById(dbContext, id);
 
             if (course is null) throw new GraphQLException(new Error("Course not found!", "COURSE_NOT_FOUND"));
 
@@ -96,8 +89,8 @@ public class CourseRepository : ICourseRepository
                 InstructorId = newCourse.InstructorId
             };
 
-            await _dbContext.AddAsync(course);
-            await _dbContext.SaveChangesAsync();
+            await dbContext.AddAsync(course);
+            await dbContext.SaveChangesAsync();
 
             var courseResult = new CourseResult
             {
@@ -125,7 +118,7 @@ public class CourseRepository : ICourseRepository
 
         try
         {
-            var course = await _dbContext.Courses.FindAsync(id);
+            var course = await dbContext.Courses.FindAsync(id);
 
             if (course is null)
                 throw new GraphQLException(new Error("Course not found!", "COURSE_NOT_FOUND"));
@@ -134,7 +127,7 @@ public class CourseRepository : ICourseRepository
             course.Subject = updatedCourse.Subject;
             course.InstructorId = updatedCourse.InstructorId;
 
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             var courseResult = new CourseResult
             {
@@ -161,13 +154,13 @@ public class CourseRepository : ICourseRepository
 
         try
         {
-            var course = await _dbContext.Courses.FindAsync(id);
+            var course = await dbContext.Courses.FindAsync(id);
 
             if (course is null)
                 throw new GraphQLException(new Error("Course not found!", "COURSE_NOT_FOUND"));
 
-            _dbContext.Courses.Remove(course);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Courses.Remove(course);
+            await dbContext.SaveChangesAsync();
         }
         catch (Exception ex)
         {

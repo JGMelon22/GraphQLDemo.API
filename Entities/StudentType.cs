@@ -6,5 +6,5 @@ public class StudentType
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
     public double Gpa { get; set; }
-    public IEnumerable<StudentCourse> StudentsCourses { get; set; }
+    public IEnumerable<StudentCourse> StudentsCourses { get; set; } = null!;
 }

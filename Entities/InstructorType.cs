@@ -7,5 +7,5 @@ public class InstructorType
     public string LastName { get; set; } = null!;
     public decimal Salary { get; set; }
     public Guid CourseId { get; set; }
-    public CourseType Course { get; set; }
+    public CourseType Course { get; set; } = null!;
 }

@@ -4,12 +4,12 @@ using GraphQLDemo.API.Interfaces;
 
 namespace GraphQLDemo.API.Infrastructure.Repository;
 
-public class InstructorRepository : IInstructorRepository
+public class InstructorRepository(AppDbContext dbContext) : IInstructorRepository
 {
     private readonly Func<AppDbContext, Guid, Task<InstructorResult?>> GetById =
         EF.CompileAsyncQuery((AppDbContext context, Guid id) =>
             context.Instructors
-                .Select(i => new InstructorResult()
+                .Select(i => new InstructorResult
                 {
                     Id = i.Id,
                     FirstName = i.FirstName,
@@ -20,20 +20,13 @@ public class InstructorRepository : IInstructorRepository
                 .AsNoTracking()
                 .FirstOrDefault(c => c.Id == id));
 
-    private readonly AppDbContext _dbContext;
-
-    public InstructorRepository(AppDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public async Task<ServiceResponse<List<InstructorResult>>> GetAllInstructorsAsync()
     {
         var serviceResponse = new ServiceResponse<List<InstructorResult>>();
 
         try
         {
-            var instructors = await _dbContext.Instructors
+            var instructors = await dbContext.Instructors
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -52,7 +45,7 @@ public class InstructorRepository : IInstructorRepository
 
                 instructorsMapped.Add(instructorResult);
             }
-            
+
             serviceResponse.Data = instructorsMapped;
         }
         catch (Exception ex)
@@ -70,7 +63,7 @@ public class InstructorRepository : IInstructorRepository
 
         try
         {
-            var instructor = await GetById(_dbContext, id);
+            var instructor = await GetById(dbContext, id);
 
             if (instructor is null)
                 throw new GraphQLException(new Error("Instructor not found!", "INSTRUCTOR_NOT_FOUND"));
@@ -100,8 +93,8 @@ public class InstructorRepository : IInstructorRepository
                 CourseId = newInstructor.CourseId
             };
 
-            await _dbContext.Instructors.AddAsync(instructor);
-            await _dbContext.SaveChangesAsync();
+            await dbContext.Instructors.AddAsync(instructor);
+            await dbContext.SaveChangesAsync();
 
             var instructorResult = new InstructorResult
             {
@@ -132,7 +125,7 @@ public class InstructorRepository : IInstructorRepository
 
         try
         {
-            var instructor = await _dbContext.Instructors.FindAsync(id);
+            var instructor = await dbContext.Instructors.FindAsync(id);
 
             if (instructor is null)
                 throw new GraphQLException(new Error("Instructor not found!", "INSTRUCTOR_NOT_FOUND"));
@@ -142,7 +135,7 @@ public class InstructorRepository : IInstructorRepository
             instructor.Salary = updatedInstructor.Salary;
             instructor.CourseId = updatedInstructor.CourseId;
 
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             var instructorResult = new InstructorResult
             {
@@ -170,13 +163,13 @@ public class InstructorRepository : IInstructorRepository
 
         try
         {
-            var instructor = await _dbContext.Instructors.FindAsync(id);
+            var instructor = await dbContext.Instructors.FindAsync(id);
 
             if (instructor is null)
                 throw new GraphQLException(new Error("Instructor not found!", "INSTRUCTOR_NOT_FOUND"));
 
-            _dbContext.Instructors.Remove(instructor);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Instructors.Remove(instructor);
+            await dbContext.SaveChangesAsync();
         }
         catch (Exception ex)
         {
